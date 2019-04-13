@@ -1,0 +1,1 @@
+clef-G2	timeSignature-C/	note-F5_quarter	note-Gb5_quarter	note-C5_quarter	note-Eb5_quarter	note-F5_quarter	note-F5_half	barline	note-F5_half	note-F5_quarter	rest-half	tie	note-Bb5_quarter	

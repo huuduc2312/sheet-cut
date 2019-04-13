@@ -1,0 +1,1 @@
+clef-G2	timeSignature-C/	note-F5_eighth	note-G5_sixteenth	note-F5_sixteenth	note-F5_quarter	note-Eb5_eighth	note-C5_eighth	note-C5_quarter	barline	note-Eb5_quarter	note-Eb5_eighth	note-Eb5_eighth	note-Db5_quarter	note-Db5_eighth	note-Eb5_eighth	barline	note-C5_quarter	note-Eb5_eighth	note-F5_eighth	note-F5_eighth	note-Eb5_quarter	tie	note-Eb5_quarter	

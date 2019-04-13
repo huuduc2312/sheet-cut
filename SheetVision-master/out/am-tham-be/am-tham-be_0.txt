@@ -1,0 +1,1 @@
+clef-F4	timeSignature-C/	keySignature-FM	note-G3_whole	note-G3_whole.	note-G3_whole.	

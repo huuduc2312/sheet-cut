@@ -1,0 +1,1 @@
+clef-G2	timeSignature-3/2	note-Bb4_whole	barline	note-Bb4_half	note-Bb4_quarter	note-C5_eighth	note-Eb5_sixteenth	barline	note-F5_eighth	note-G5_sixteenth	note-F5_sixteenth	note-F5_eighth	barline	note-E5_eighth	note-C5_eighth	note-C5_quarter	

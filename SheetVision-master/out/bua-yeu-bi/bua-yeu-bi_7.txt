@@ -1,0 +1,1 @@
+clef-G2	keySignature-GbM	timeSignature-C	note-F5_eighth	note-Ab5_eighth	note-F5_quarter	note-F5_quarter	note-Bb5_quarter	note-Gb5_quarter	note-F5_quarter	note-Eb5_quarter	barline	rest-eighth	note-F5_quarter	note-F5_quarter	note-F5_quarter	note-F5_quarter	note-F5_quarter	note-F5_quarter	note-F5_sixteenth	

@@ -23,7 +23,7 @@ def fit(img, templates, start_percent, stop_percent, threshold):
             result = np.where(result >= threshold)
             location_count += len(result[0])
             locations += [result]
-        print("scale: {0}, hits: {1}".format(scale, location_count))
+        # print("scale: {0}, hits: {1}".format(scale, location_count))
         x.append(location_count)
         y.append(scale)
         # plt.plot(y, x)

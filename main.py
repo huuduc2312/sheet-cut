@@ -7,11 +7,14 @@ import argparse
 import tensorflow as tf
 import ctc_utils
 import cv2
+import shutil
+import zipfile
 import numpy as np
 from best_fit import fit
 from rectangle import Rectangle
 from note import Note
 from random import randint
+from os.path import basename
 
 staff_files = [
     "resources/template/staff2.png", 
@@ -55,9 +58,18 @@ def open_file(path):
     cmd = {'linux':'eog', 'win32':'explorer', 'darwin':'open'}[sys.platform]
     subprocess.run([cmd, path])
 
+def zipfolder(path, zip_file):            
+    zipobj = zipfile.ZipFile(foldername + '.zip', 'w', zipfile.ZIP_DEFLATED)
+    rootlen = len(target_dir) + 1
+    for base, dirs, files in os.walk(target_dir):
+        for file in files:
+            fn = os.path.join(base, file)
+            zipobj.write(fn, fn[rootlen:])
+
 if __name__ == "__main__":
     img_file = sys.argv[1:][0]
-    img = cv2.imread(img_file, 0)
+    in_path = 'in/' + img_file
+    img = cv2.imread(in_path, 0)
     img_gray = img#cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
     img = cv2.cvtColor(img_gray,cv2.COLOR_GRAY2RGB)
     ret,img_gray = cv2.threshold(img_gray,127,255,cv2.THRESH_BINARY)
@@ -91,14 +103,14 @@ if __name__ == "__main__":
     staff_boxes_img = img.copy()
     i = 0
     # define the name of the directory to be created
-    path = 'out/' + img_file[:10]
+    out_path = 'out/' + img_file[:20]
 
     try:  
-        os.mkdir(path)
+        os.mkdir(out_path)
     except OSError:  
-        print ("Creation of the directory %s failed" % path)
+        print ("Creation of the directory %s failed" % out_path)
     else:  
-        print ("Successfully created the directory %s " % path)
+        print ("Successfully created the directory %s " % out_path)
 
     tf.reset_default_graph()
     sess = tf.InteractiveSession()
@@ -134,8 +146,8 @@ if __name__ == "__main__":
     for r in staff_boxes:
         r.w=theWidth-r.x
         crop_img = staff_boxes_img[r.y:r.y+int(r.h), r.x:r.x+int(r.w)]
-        cv2.imwrite(path + '/staff_boxes_img' + str(i) + '.png', crop_img)
-        image = cv2.imread(path + '/staff_boxes_img' + str(i) + '.png',False)
+        cv2.imwrite(out_path + '/staff_boxes_img' + str(i) + '.png', crop_img)
+        image = cv2.imread(out_path + '/staff_boxes_img' + str(i) + '.png',False)
         image = ctc_utils.resize(image, HEIGHT)
         image = ctc_utils.normalize(image)
         image = np.asarray(image).reshape(1,image.shape[0],image.shape[1],1)
@@ -151,13 +163,16 @@ if __name__ == "__main__":
 
         str_predictions = ctc_utils.sparse_tensor_to_strs(prediction)
 
-        f = open(path + '/' + img_file[:10] + '_' + str(i) + '.txt', 'w')
+        f = open(out_path + '/' + img_file[:20] + '_' + str(i) + '.txt', 'w')
         for w in str_predictions[0]:
-            print (int2word[w]),
-            print ('\t'),
             f.write(int2word[w] + '\t')
 
         f.close()
         i += 1
 #        open_file('staff_boxes_img2.png')
+    zipf = zipfile.ZipFile('out/' + img_file[:20] + '.zip', 'w', zipfile.ZIP_DEFLATED)
+    for root, dirs, files in os.walk(out_path):  
+        for filename in files:
+            zipf.write(os.path.join(root, filename), basename(os.path.join(root, filename)))
+    zipf.close()
 
